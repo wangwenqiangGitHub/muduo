@@ -15,7 +15,8 @@
 #include <functional>
 #include <vector>
 
-#include <boost/any.hpp>
+// #include <boost/any.hpp>
+#include "muduo/base/Any.h"
 
 #include "muduo/base/Mutex.h"
 #include "muduo/base/CurrentThread.h"
@@ -117,13 +118,13 @@ class EventLoop : noncopyable
   // bool callingPendingFunctors() const { return callingPendingFunctors_; }
   bool eventHandling() const { return eventHandling_; }
 
-  void setContext(const boost::any& context)
+  void setContext(const any& context)
   { context_ = context; }
 
-  const boost::any& getContext() const
+  const any& getContext() const
   { return context_; }
 
-  boost::any* getMutableContext()
+  any* getMutableContext()
   { return &context_; }
 
   static EventLoop* getEventLoopOfCurrentThread();
@@ -150,7 +151,7 @@ class EventLoop : noncopyable
   // unlike in TimerQueue, which is an internal class,
   // we don't expose Channel to client.
   std::unique_ptr<Channel> wakeupChannel_;
-  boost::any context_;
+  any context_;
 
   // scratch variables
   ChannelList activeChannels_;
